@@ -46,6 +46,7 @@ export default function Home() {
     const query = {
       ...router.query,
     }
+    setMobileToggle(false)
     if (router.isReady) {
       fetchPosts(query);
     }

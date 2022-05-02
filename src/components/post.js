@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-
+import { isArray, isEmpty } from "lodash";
 const Posts = ({ posts, loading }) => {
     if (loading) {
         return <h2>Loading...</h2>;
@@ -10,10 +10,10 @@ const Posts = ({ posts, loading }) => {
         const [isOpen, setIsOpen] = useState(false);
         return (
             <>
-                <div className="column first" >
+                <div className={`column first ${isOpen ? 'active' : ''}`} >
                     <div className="top" onClick={() => { setIsOpen(!isOpen) }}>{title}</div>
                     {/* for Mobile */}
-                    <div className={`expand ${isOpen ? 'active' : ''}`}>
+                    <div className={`expand`}>
                         {children}
                     </div>
                 </div>
@@ -25,7 +25,7 @@ const Posts = ({ posts, loading }) => {
     return (
         <>
             <ul className='list-group mb-4'>
-                {posts.map((post, index) => (
+                {!isEmpty(posts) ? posts.map((post, index) => (
 
                     <div key={index} className="row">
                         <Accordion title={post.logId}>
@@ -63,7 +63,9 @@ const Posts = ({ posts, loading }) => {
                     </div>
 
 
-                ))}
+                )) : (
+                    <div className='nodata'>No Data</div>
+                )}
             </ul>
 
         </>

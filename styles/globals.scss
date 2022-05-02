@@ -267,6 +267,9 @@ ul {
               right: 0px;
               width: 14px;
               height: 14px;
+              transform: rotate(0deg);
+              transition: .2s transform ease-in-out;
+
             }
           }
         }
@@ -275,13 +278,7 @@ ul {
           display: none;
           border-top: 1px solid #e6e6e6;
 
-          &.active {
-            @media (max-width: 600px) {
-              display: block;
-              margin-top: 20px;
-            }
 
-          }
 
           ul {
             li {
@@ -304,6 +301,23 @@ ul {
               }
             }
           }
+        }
+
+        &.active {
+          @media (max-width: 600px) {
+            .expand {
+              display: block;
+              margin-top: 20px;
+            }
+
+            .top {
+              &::after {
+                transform: rotate(180deg);
+                transition: .2s transform ease-in-out;
+              }
+            }
+          }
+
         }
       }
     }
@@ -354,4 +368,9 @@ ul {
       height: 15px;
     }
   }
+}
+
+.nodata {
+  display: flex;
+  padding: 20px;
 }
