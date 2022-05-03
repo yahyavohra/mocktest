@@ -4,43 +4,39 @@ import Posts from '../src/components/post';
 import Pagination from '../src/components/pagination';
 import { useForm } from 'react-hook-form';
 import { isArray, isEmpty } from "lodash";
-
+import { handleGetAllUnique, cleanObj, updateData } from '../utils/services';
+import { postData } from "../utils/middleware";
 
 export default function Home() {
-
-
   const router = useRouter()
   const [posts, setPosts] = useState([]);
-  const [allposts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [actionTypeSelector, setActionTypeSelector] = useState([])
   const [applicationTypeSelector, setApplicationTypeSelector] = useState([])
-
   const [mobileToggle, setMobileToggle] = useState(false)
 
   const fetchPosts = async (query) => {
-    const response = await fetch('/api/endpoint')
-    const res = await response.json()
-    const updatequery = await updateData(clean(query), res.result.auditLog);
 
+    postData().then(async (res) => {
+      const updatequery = await updateData(cleanObj(query), res.result.auditLog)
+      setPosts(updatequery)
+      setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
+      setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
+    }).catch((err) => {
+      console.log(err.response)
+    })
 
-
-    setPosts(updatequery)
-
-
-
-    setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
-    setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
   };
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-  });
+
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const { register, handleSubmit } = useForm({});
 
   useEffect(() => {
     const query = {
@@ -52,67 +48,21 @@ export default function Home() {
     }
   }, [router.isReady, router]);
 
-  /* Pagination -  `Set values ` */
 
 
 
   /* handling -  `Sorting column Assending and decending onchange` */
   const handleSort = (key) => {
-    console.log(key, posts)
     const sortedData = [...posts].sort((a, b) => {
       return a.key > b.key ? 1 : -1
     })
     setPosts(sortedData)
   }
 
-  /* handling -  `SelectBox option on by default` */
-  const handleGetAllUnique = (posts, key) => {
-    const uniqueData = posts.filter((e) => {
-      return e[`${key}`] != null ? !(posts[e[`${key}`]] = e[`${key}`] in posts) : null
-    })
-    return uniqueData
-  }
 
-  const clean = (obj) => {
-    for (var propName in obj) {
-      if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '' || propName === 'page' || propName === 'page_size') {
-        delete obj[propName];
-      }
-    }
-    return obj
-  }
-  const formatDate = (value) => {
-    var split_var = value.split(' ')
-    return split_var[0]
-  }
-
-  const updateData = async (cleanValue, data) => {
-
-    const filter_logger = data.filter((item) => {
-      for (var key in cleanValue) {
-        if (key == 'from_date' || key == 'to_date') {
-
-          if (key == 'from_date' && key == 'to_date' && formatDate(item.creationTimestamp) < value.from_date || formatDate(item.creationTimestamp) > cleanValue.to_date) {
-            return false
-          }
-          else if (key == 'from_date') { return formatDate(item.creationTimestamp) >= cleanValue.from_date }
-          else if (key == 'to_date') { return formatDate(item.creationTimestamp) <= cleanValue.to_date }
-
-        } else {
-
-          if (item[key] === undefined || item[key] != cleanValue[key]) {
-            return false
-          }
-        }
-      }
-      return true
-    })
-    return filter_logger
-
-  }
 
   const onSubmit_handle = async (value) => {
-    var cleanValue = clean(value)
+    var cleanValue = cleanObj(value)
     router.push({
       query: cleanValue
     }, undefined, { shallow: true })
@@ -120,10 +70,7 @@ export default function Home() {
   };
 
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
@@ -237,7 +184,15 @@ export default function Home() {
               />
             </>
 
-            : null}
+            : (
+              <div className={`loader-container  `}>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+              </div>
+            )}
 
 
         </div>

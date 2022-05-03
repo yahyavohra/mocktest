@@ -25,7 +25,7 @@ const Posts = ({ posts, loading }) => {
     return (
         <>
             <ul className='list-group mb-4'>
-                {!isEmpty(posts) ? posts.map((post, index) => (
+                {!isEmpty(posts) & isArray(posts) ? posts.map((post, index) => (
 
                     <div key={index} className="row">
                         <Accordion title={post.logId}>

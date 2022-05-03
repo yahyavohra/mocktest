@@ -5,6 +5,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
+  eslint: {
+    dirs: ['pages', 'utils'],
+  },
 }
 
 module.exports = nextConfig
