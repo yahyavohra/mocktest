@@ -186,6 +186,10 @@ ul {
       border: 1px solid #e6e6e6;
       padding: 0 15px;
 
+      @media (max-width:390px) {
+        height: 35px
+      }
+
       &:focus {
         appearance: none;
         box-shadow: none;
@@ -218,7 +222,7 @@ ul {
 
   .list-group {
     @media (max-width:600px) {
-      height: 65vh;
+      height: 60vh;
       overflow-y: auto;
     }
 
