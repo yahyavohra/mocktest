@@ -1,10 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { isArray, isEmpty } from "lodash";
-const Posts = ({ posts, loading }) => {
-    if (loading) {
-        return <h2>Loading...</h2>;
-    }
+const Posts = ({ posts }) => {
+
 
     const Accordion = ({ title, children, titleOpen }) => {
         const [isOpen, setIsOpen] = useState(false);

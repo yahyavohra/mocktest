@@ -1,16 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
+import { isArray, isEmpty } from "lodash";
+import { useForm } from 'react-hook-form';
+
+
 import Posts from '../src/components/post';
 import Pagination from '../src/components/pagination';
-import { useForm } from 'react-hook-form';
-import { isArray, isEmpty } from "lodash";
 import { handleGetAllUnique, cleanObj, updateData } from '../utils/services';
 import { postData } from "../utils/middleware";
+import { Arrow } from "../src/assets/arrow";
 
 export default function Home() {
   const router = useRouter()
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [allposts, setallposts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [actionTypeSelector, setActionTypeSelector] = useState([])
@@ -18,8 +21,8 @@ export default function Home() {
   const [mobileToggle, setMobileToggle] = useState(false)
 
   const fetchPosts = async (query) => {
-
     postData().then(async (res) => {
+      setallposts(res.result.auditLog)
       const updatequery = await updateData(cleanObj(query), res.result.auditLog)
       setPosts(updatequery)
       setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
@@ -27,7 +30,6 @@ export default function Home() {
     }).catch((err) => {
       console.log(err.response)
     })
-
   };
 
 
@@ -48,19 +50,6 @@ export default function Home() {
     }
   }, [router.isReady, router]);
 
-
-
-
-  /* handling -  `Sorting column Assending and decending onchange` */
-  const handleSort = (key) => {
-    const sortedData = [...posts].sort((a, b) => {
-      return a.key > b.key ? 1 : -1
-    })
-    setPosts(sortedData)
-  }
-
-
-
   const onSubmit_handle = async (value) => {
     var cleanValue = cleanObj(value)
     router.push({
@@ -69,10 +58,23 @@ export default function Home() {
 
   };
 
+  const handleSort = async (event, key) => {
+    let active
+    if (event.target.classList == "active") {
+      event.target.classList.remove('active');
+      active = false
+    } else {
+      event.target.classList.add('active');
+      active = true
+    }
+    const sortedData = [...allposts].sort((a, b) => {
+      a = a[`${key}`]
+      b = b[`${key}`]
+      return active ? a > b ? 1 : -1 : a > b ? -1 : 1
+    })
+    setPosts(sortedData)
+  }
 
-
-
-  // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
   return (
     <>
@@ -148,34 +150,30 @@ export default function Home() {
         </div>
         <div className="table">
           <div className="row">
+            <div className="column" >
+              <div className="top">
+                <a onClick={(e) => { handleSort(e, 'logId') }}>Log ID <Arrow /> </a>
+              </div>
+            </div>
+            <div className="column" >
+              <a onClick={(e) => { handleSort(e, 'logId') }}>Application Type <Arrow />  </a>
+            </div>
+            <div className="column"  >
+              <a onClick={(e) => { handleSort(e, 'applicationId') }}>Application ID <Arrow />  </a>
+            </div>
             <div className="column">
-              <div className="top">Log ID</div>
+              <a onClick={(e) => { handleSort(e, 'actionType') }}>Action <Arrow />  </a>
             </div>
-            <div className="column">Application Type
-              <a onClick={() => { handleSort('applicationType') }}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  version="1.1"
-                  id="Layer_1"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 476.492 476.492"
-                  style={{ enableBackground: "new 0 0 476.492 476.492" }}
-                  xmlSpace="preserve"
-                >
-                  <polygon points="253.246,339.952 253.246,0 223.246,0 223.246,339.952 101.707,339.952 238.246,476.492 374.785,339.952 " />
-                </svg>
-              </a>
+            <div className="column">
+              Action Details
             </div>
-            <div className="column">Application ID</div>
-            <div className="column">Action</div>
-            <div className="column">Action Details</div>
-            <div className="column">Date:Time</div>
+            <div className="column" >
+              <a onClick={(e) => { handleSort(e, 'creationTimestamp') }}>Date:Time <Arrow /> </a>
+            </div>
           </div>
           {!isEmpty(currentPosts) && isArray(currentPosts) > 0 ?
             <>
-              <Posts posts={currentPosts} loading={loading} />
+              <Posts posts={currentPosts} />
               <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={posts.length}
@@ -193,13 +191,8 @@ export default function Home() {
                 <div className="dot"></div>
               </div>
             )}
-
-
         </div>
       </main>
-
-
-
     </>
   )
 }
