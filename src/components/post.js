@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { isArray, isEmpty } from "lodash";
+import { format_Text } from '../../utils/services';
 const Posts = ({ posts }) => {
 
 
@@ -53,9 +54,9 @@ const Posts = ({ posts }) => {
 
                         </Accordion>
 
-                        <div className="column">{post.applicationType}</div>
-                        <div className="column">{post.applicationId}</div>
-                        <div className="column">{post.actionType}</div>
+                        <div className="column">{format_Text(post.applicationType)}</div>
+                        <div className="column">{format_Text(post.applicationId)}</div>
+                        <div className="column">{format_Text(post.actionType)}</div>
                         <div className="column">-/-</div>
                         <div className="column">{post.creationTimestamp}</div>
                     </div>

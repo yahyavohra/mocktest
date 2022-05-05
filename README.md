@@ -1,4 +1,4 @@
-# KMMRCE
+# Mock Test
 
 Mocktest, is created based on [Next.js](https://nextjs.org/).
 
@@ -36,15 +36,14 @@ https://run.mocky.io/v3/a2fbc23e-069e-4ba5-954c-cd910986f40f
 
 | Name | Refrence Link |
 | ------ | ------ |
-| Next Auth | https://next-auth.js.org |
 | React Hook Form | https://www.react-hook-form.com |
 | Lodash | https://lodash.com |
 
-## Deployment Server
+## Demo Server
 
-Using a vercel Server [vercel](https://vercel.com) to deploy a package on server.
+Using a [Vercel](https://vercel.com) Server  to deploy a package.
 
-Site URL: [Link] (https://mock-test-sigma.vercel.app)
+Site URL: [Link](https://mock-test-sigma.vercel.app)
 
 
 

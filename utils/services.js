@@ -41,3 +41,16 @@ export const updateData = async (cleanValue, data) => {
     })
     return filter_logger
 }
+
+export const format_Text = (value) => {
+
+    if (value && typeof value == 'string') {
+        value = value.replaceAll('_', ' ');
+        value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    } else if (!value) {
+        value = '-/-'
+    }
+
+    return value
+}

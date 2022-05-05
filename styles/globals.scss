@@ -23,6 +23,10 @@ body {
   font-family: 'Roboto', sans-serif;
   @include scroller-style;
 
+  @media (min-width:1080px) and (max-width:1400px) {
+    font-size: 13px;
+  }
+
   @media (max-width:600px) {
     overflow: hidden;
   }
