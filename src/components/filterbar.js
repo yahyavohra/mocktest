@@ -10,8 +10,10 @@ const Filterbar = ({ actionTypeSelector, applicationTypeSelector }) => {
     const router = useRouter()
     const [mobileToggle, setMobileToggle] = useState(false)
     const onSubmit_handle = async (value) => {
-        var cleanValue = cleanObj(value)
+        var objquery = { ...router.query, ...value }
+        var cleanValue = cleanObj(objquery)
         router.push({
+
             query: cleanValue
         }, undefined, { shallow: true })
 

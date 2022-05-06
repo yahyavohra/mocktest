@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { isArray, isEmpty } from "lodash";
-import { format_Text } from '../../utils/services';
+import { format_Text, format_date } from '../../utils/services';
 const Posts = ({ posts }) => {
 
 
@@ -58,7 +58,7 @@ const Posts = ({ posts }) => {
                         <div className="column">{format_Text(post.applicationId)}</div>
                         <div className="column">{format_Text(post.actionType)}</div>
                         <div className="column">-/-</div>
-                        <div className="column">{post.creationTimestamp}</div>
+                        <div className="column">{format_date(post.creationTimestamp)}</div>
                     </div>
 
 

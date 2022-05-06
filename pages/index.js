@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
 import { isArray, isEmpty } from "lodash";
 
@@ -49,28 +49,25 @@ export default function Home() {
   };
 
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const firstPageIndex = (currentPage - 1) * postsPerPage;
+  const lastPageIndex = firstPageIndex + postsPerPage;
+  const currentTableData = posts.slice(firstPageIndex, lastPageIndex);
 
-  const handlePost = data => setPosts(data)
-  const paginate = pageNumber => setCurrentPage(pageNumber);
   return (
     <>
       <main>
         <Topbar />
         <Filterbar actionTypeSelector={actionTypeSelector} applicationTypeSelector={applicationTypeSelector} />
         <div className="table">
-          <Sortbar handlePost={handlePost} allposts={allposts} />
-          {!isEmpty(currentPosts) && isArray(currentPosts) ?
+          <Sortbar handlePost={data => setPosts(data)} allposts={allposts} />
+          {!isEmpty(currentTableData) && isArray(currentTableData) ?
             <>
-              <Posts posts={currentPosts} />
+              <Posts posts={currentTableData} />
               <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={posts.length}
+                pageSize={postsPerPage}
+                totalCount={posts.length}
                 currentPage={currentPage}
-                paginate={paginate}
+                paginate={page => setCurrentPage(page)}
               />
             </>
             : (

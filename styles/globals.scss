@@ -21,6 +21,7 @@ body {
   margin: 0 !important;
   max-width: 100%;
   font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.02rem;
   @include scroller-style;
 
   @media (min-width:1080px) and (max-width:1400px) {
@@ -371,15 +372,39 @@ ul {
       align-items: center;
 
       li {
-        padding: 6px 6px;
+        padding: 6px 12px;
         cursor: pointer;
         color: #afafaf;
-        margin: 0px 1px;
 
-        &.active,
-        &:hover {
+        &.page-item.active,
+        &.page-item:hover {
           color: #1a1a1a;
           background-color: #f0f0f0;
+          font-weight: 600;
+        }
+
+        a.arrow {
+          &::before {
+            position: relative;
+            content: '';
+            display: inline-block;
+            width: 0.4em;
+            height: 0.4em;
+            border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+            border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+          }
+
+          &.left {
+            &::before {
+              transform: rotate(-135deg) translatex(20%);
+            }
+          }
+
+          &.right {
+            &::before {
+              transform: rotate(45deg) translatex(-20%);
+            }
+          }
         }
       }
     }
@@ -392,11 +417,46 @@ ul {
   a {
     margin-top: 3px;
 
-    svg {
-      width: 15px;
-      height: 13px;
-      margin-left: -5px;
-      margin-top: 0px;
+
+
+    &.thead {
+      font-weight: 500;
+      position: relative;
+
+      &::before {
+        background-color: #ccc;
+        padding: 10px;
+        position: absolute;
+        content: "";
+        right: -30px;
+        top: -3px;
+        border-radius: 30px;
+      }
+
+      &::after {
+        content: "";
+        background-image: url("../public/arrows.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: absolute;
+        right: -25px;
+        width: 10px;
+        height: 14px;
+        transform: rotate(180deg);
+        transition: 0.6s transform ease-in-out;
+      }
+
+      &.active {
+        &::after {
+          transform: rotate(0deg);
+          transition: 0.6s transform ease-in-out;
+        }
+
+        &::before {
+          background-color: #79aefd;
+        }
+      }
     }
   }
 }
