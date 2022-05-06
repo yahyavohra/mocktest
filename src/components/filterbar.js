@@ -42,7 +42,7 @@ const Filterbar = ({ actionTypeSelector, applicationTypeSelector }) => {
                     </div>
                     <div className="grouped">
                         <label htmlFor="">Action Type</label>
-                        <select   {...register('actionType')} >
+                        <select id="cype_actiontype"  {...register('actionType')} >
                             <option></option>
                             {!isEmpty(actionTypeSelector) ? actionTypeSelector.map((data, index) => {
                                 return (
@@ -78,7 +78,7 @@ const Filterbar = ({ actionTypeSelector, applicationTypeSelector }) => {
                     </div>
                     <div className="grouped">
                         <label htmlFor="">&nbsp;</label>
-                        <input type="submit" defaultValue="Search Logger" />
+                        <input type="submit" id="cype_filter_btn" defaultValue="Search Logger" />
                     </div>
                 </form>
             </div>

@@ -37,15 +37,18 @@ export default function Home() {
 
 
   const fetchPosts = async (query) => {
-    postData().then(async (res) => {
+    try {
+      const res = await postData()
       setallposts(res.result.auditLog)
       const updatequery = await updateData(cleanObj(query), res.result.auditLog)
       setPosts(updatequery)
       setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
       setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
-    }).catch((err) => {
-      console.log(err.response)
-    })
+    } catch (error) {
+      console.log(error);
+    }
+
+
   };
 
 
@@ -56,6 +59,7 @@ export default function Home() {
   return (
     <>
       <main>
+        <h3>Deploy</h3>
         <Topbar />
         <Filterbar actionTypeSelector={actionTypeSelector} applicationTypeSelector={applicationTypeSelector} />
         <div className="table">
