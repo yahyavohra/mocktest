@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "cypress open",
+    "server": "start-server-and-test dev 3000 test"
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -17,7 +19,9 @@
     "sass": "^1.51.0"
   },
   "devDependencies": {
+    "cypress": "^9.6.0",
     "eslint": "8.14.0",
-    "eslint-config-next": "12.1.5"
+    "eslint-config-next": "12.1.5",
+    "start-server-and-test": "^1.14.0"
   }
 }

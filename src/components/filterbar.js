@@ -54,7 +54,7 @@ const Filterbar = ({ actionTypeSelector, applicationTypeSelector }) => {
                     </div>
                     <div className="grouped">
                         <label htmlFor="">Application Type</label>
-                        <select {...register('applicationType')}  >
+                        <select id="cype_applicationType" {...register('applicationType')}  >
                             <option></option>
                             {!isEmpty(applicationTypeSelector) ? applicationTypeSelector.map((data, index) => {
                                 return (

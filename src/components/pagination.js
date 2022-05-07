@@ -28,7 +28,7 @@ const Pagination = ({ totalCount, paginate, currentPage, pageSize }) => {
                         )
                     }
                     )}
-                    {paginationRange.length > currentPage ? (<li className="page-item" onClick={() => paginate(currentPage + 1)} ><a className='page-link arrow right'> </a></li>) : null}
+                    {paginationRange.length > currentPage ? (<li className="page-item" onClick={() => paginate(currentPage + 1)} ><a className='page-link arrow right' id="cype_page_NextBtn"> </a></li>) : null}
                 </ul>
             </div>
         </>

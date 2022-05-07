@@ -56,7 +56,7 @@ const Posts = ({ posts }) => {
 
                         <div className="column">{format_Text(post.applicationType)}</div>
                         <div className="column">{format_Text(post.applicationId)}</div>
-                        <div className="column">{format_Text(post.actionType)}</div>
+                        <div className="column cyp_field_key">{format_Text(post.actionType)}</div>
                         <div className="column">-/-</div>
                         <div className="column">{format_date(post.creationTimestamp)}</div>
                     </div>

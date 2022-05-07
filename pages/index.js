@@ -17,7 +17,6 @@ import Loader from "../src/components/loader";
 export default function Home() {
   const router = useRouter()
   const [posts, setPosts] = useState([]);
-  const [loader, setLoader] = useState(true)
   const [allposts, setallposts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [actionTypeSelector, setActionTypeSelector] = useState([])
@@ -25,13 +24,11 @@ export default function Home() {
   const [postsPerPage] = useState(10);
 
   useEffect(() => {
-    setLoader(true)
     const query = {
       ...router.query,
     }
     if (router.isReady) {
       fetchPosts(query);
-      setLoader(false)
     }
   }, [router.isReady, router]);
 
@@ -77,11 +74,7 @@ export default function Home() {
             : (
               <>
                 {
-                  loader ? (
-                    <Loader />
-                  ) : (
-                    <div className="noResult"> No result..</div>
-                  )
+                  <Loader />
                 }
               </>
             )}

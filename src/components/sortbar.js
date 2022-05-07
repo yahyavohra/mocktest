@@ -34,7 +34,7 @@ const Sortbar = ({ handlePost, allposts }) => {
                 <div className="column">
                     Action Details
                 </div>
-                <div className="column" >
+                <div className="column " id="cype_sort_test" >
                     <ObjectRender keyId='creationTimestamp' >Date: Time</ObjectRender>
                 </div>
             </div>
