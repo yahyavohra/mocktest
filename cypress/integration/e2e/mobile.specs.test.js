@@ -1,4 +1,4 @@
-context('Filter test', () => {
+context('small media device test (using view IphoneXr )', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000');
         cy.viewport(414, 896)

@@ -36,11 +36,15 @@ export default function Home() {
   const fetchPosts = async (query) => {
     try {
       const res = await postData()
-      setallposts(res.result.auditLog)
-      const updatequery = await updateData(cleanObj(query), res.result.auditLog)
-      setPosts(updatequery)
-      setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
-      setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
+      console.log(res)
+      if (res.success) {
+        setallposts(res.result.auditLog)
+        const updatequery = await updateData(cleanObj(query), res.result.auditLog)
+        setPosts(updatequery)
+        setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
+        setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
+      }
+
     } catch (error) {
       console.log(error);
     }
