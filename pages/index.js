@@ -15,6 +15,7 @@ import Loader from "../src/components/loader";
 export default function Home() {
   const router = useRouter()
   const [posts, setPosts] = useState([]);
+  const [loader, setLoader] = useState(true)
   const [allposts, setallposts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [actionTypeSelector, setActionTypeSelector] = useState([])
@@ -34,17 +35,19 @@ export default function Home() {
   const fetchPosts = async (query) => {
     try {
       const res = await postData()
-      console.log(res)
+      setLoader(true)
       if (res.success) {
         setallposts(res.result.auditLog)
         const updatequery = await updateData(cleanObj(query), res.result.auditLog)
         setPosts(updatequery)
         setActionTypeSelector(handleGetAllUnique(res.result.auditLog, 'actionType'))
         setApplicationTypeSelector(handleGetAllUnique(res.result.auditLog, 'applicationType'))
+        setLoader(false)
       }
 
     } catch (error) {
       console.log(error);
+      setLoader(false)
     }
 
 
@@ -74,8 +77,10 @@ export default function Home() {
             </>
             : (
               <>
-                {
+                {loader ?
                   <Loader />
+                  :
+                  <div className="nodata">No data Showing...</div>
                 }
               </>
             )}
