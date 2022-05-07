@@ -32,15 +32,15 @@ const Posts = ({ posts }) => {
                             <ul>
                                 <li>
                                     <span>Application Type</span>
-                                    <span>{post.applicationType}</span>
+                                    <span>{format_Text(post.applicationType)}</span>
                                 </li>
                                 <li>
                                     <span>Application ID</span>
-                                    <span>{post.applicationId}</span>
+                                    <span>{format_Text(post.applicationId)}</span>
                                 </li>
                                 <li>
                                     <span>Action</span>
-                                    <span>{post.actionType}</span>
+                                    <span>{format_Text(post.actionType)}</span>
                                 </li>
                                 <li>
                                     <span>Action Details</span>
@@ -48,7 +48,7 @@ const Posts = ({ posts }) => {
                                 </li>
                                 <li>
                                     <span>Date:Time</span>
-                                    <span>2022-02-04 / 00:02:16</span>
+                                    <span>{format_date(post.creationTimestamp)}</span>
                                 </li>
                             </ul>
 
@@ -58,7 +58,7 @@ const Posts = ({ posts }) => {
                         <div className="column">{format_Text(post.applicationId)}</div>
                         <div className="column cyp_field_key">{format_Text(post.actionType)}</div>
                         <div className="column">-/-</div>
-                        <div className="column">{format_date(post.creationTimestamp)}</div>
+                        <div className="column cype_filed_key2">{format_date(post.creationTimestamp)}</div>
                     </div>
 
 
