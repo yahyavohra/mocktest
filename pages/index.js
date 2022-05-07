@@ -81,9 +81,6 @@ export default function Home() {
             )}
         </div>
       </main>
-      <div className="me">
-
-      </div>
     </>
   )
 }

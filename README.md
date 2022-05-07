@@ -65,10 +65,12 @@ Run `npm run build` and `npm run start`, then run `npm run test ` in another ter
 Run `npm run dev`,  and `npm run test` in another terminal window to start Cypress.
 
 it will show a cypress window, you need to click integration test button on right side (see attached).
+
 ![cypress first screen](https://mock-test-sigma.vercel.app/_next/static/media/first.29a19034.PNG)
 
-After completed
-![cypress first screen](https://mock-test-sigma.vercel.app/_next/static/media/second.960772fc.PNG)
+After successfully completed.
+
+![cypress second screen](https://mock-test-sigma.vercel.app/_next/static/media/second.960772fc.PNG)
 
 
 
