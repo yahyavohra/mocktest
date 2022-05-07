@@ -70,7 +70,7 @@ it will show a cypress window, you need to click integration test button on righ
 
 After successfully completed.
 
-![cypress second screen](https://mock-test-sigma.vercel.app/_next/static/media/second.960772fc.PNG)
+![cypress second screen](https://mock-test-sigma.vercel.app/_next/static/media/second.b5563d1c.PNG)
 
 
 
