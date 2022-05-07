@@ -1,4 +1,4 @@
-context('Filter test', () => {
+context('Sorting Test', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000');
         cy.viewport(1440, 900)
