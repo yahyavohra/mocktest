@@ -225,6 +225,12 @@ ul {
   padding-bottom: 60px;
   box-sizing: border-box;
 
+  >.row:first-child {
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
   .list-group {
     @media (max-width:600px) {
       height: 60vh;
@@ -244,11 +250,7 @@ ul {
       grid-template-columns: 1fr;
     }
 
-    &:first-child {
-      @media (max-width: 1200px) {
-        display: none;
-      }
-    }
+
 
     &:last-child {
       border-bottom: 0;
