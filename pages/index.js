@@ -2,8 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
 import { isArray, isEmpty } from "lodash";
 
-
-
 import Posts from '../src/components/post';
 import Pagination from '../src/components/pagination';
 import { handleGetAllUnique, cleanObj, updateData } from '../utils/services';
@@ -60,7 +58,6 @@ export default function Home() {
   return (
     <>
       <main>
-        <h3>Deploy</h3>
         <Topbar />
         <Filterbar actionTypeSelector={actionTypeSelector} applicationTypeSelector={applicationTypeSelector} />
         <div className="table">
